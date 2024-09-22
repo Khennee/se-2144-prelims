@@ -7,44 +7,47 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- <div class="THEMES">
+        <input type="button" value="Themes">
+    </div> -->
     <div class="CONTAINER">
         <div class="CALCULATOR">
             <form>
                 <div class="INPUT">
-                    <input type="text" name="display">
+                    <input type="text" name="display" readonly id="display">
                 </div>
                 <div>
-                    <input type="button" value="AC">
-                    <input type="button" value="Bye">
-                    <input type="button" value="<">
-                    <input type="button" value="/">
+                    <input type="button" id="AC" value="ON" class="ON">
+                    <input type="button" id="OffButton" value="Bye" class="OFF">
+                    <input type="button" id='Backspace' value="←" class="OPERATOR">
+                    <input type="button" id='Divide' value="÷" class="OPERATOR">
                 </div>
                 <div>
-                    <input type="button" value="7">
-                    <input type="button" value="8">
-                    <input type="button" value="9">
-                    <input type="button" value="*">
+                    <input type="button" id="7" value="7">
+                    <input type="button" id="8" value="8">
+                    <input type="button" id="9" value="9">
+                    <input type="button" id='Multiply' value="×" class="OPERATOR">
                 </div>
                 <div>
-                    <input type="button" value="4">
-                    <input type="button" value="5">
-                    <input type="button" value="6">
-                    <input type="button" value="+">
+                    <input type="button" id="4" value="4">
+                    <input type="button" id="5" value="5">
+                    <input type="button" id="6" value="6">
+                    <input type="button" id='Add' value="+" class="OPERATOR">
                 </div>
                 <div>
-                    <input type="button" value="1">
-                    <input type="button" value="2">
-                    <input type="button" value="3">
-                    <input type="button" value="-">
+                    <input type="button" id="1" value="1">
+                    <input type="button" id="2" value="2">
+                    <input type="button" id="3" value="3">
+                    <input type="button" id='Subtract' value="-" class="OPERATOR">
                 </div>
                 <div>
-                    <input type="button" value="0">
-                    <input type="button" value=".">
-                    <input type="button" value="=" class="EQUAL">
+                    <input type="button" id="0" value="0">
+                    <input type="button" id='Decimal' value=".">
+                    <input type="button" id='Equal' value="=" class="EQUAL">
                 </div>
             </form>
         </div>
     </div>
-    
+    <script src="script.js"></script>
 </body>
 </html>
