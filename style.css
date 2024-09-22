@@ -40,7 +40,7 @@ body{
     width: 60px;
     height: 60px; 
     /* box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.2); */
-    font-size: 20px;  
+    font-size: 10px;  
     color: #fff; 
     cursor: pointer;
     margin: 10px;
@@ -54,7 +54,7 @@ body{
     height: 60px;
     border-radius: 15px; 
     /* box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.2); */
-    font-size: 20px; 
+    font-size: 25px; 
     color: #333;
     cursor: pointer;
     margin: 10px;
