@@ -12,11 +12,23 @@ const multiplyButton = document.getElementById('Multiply')
 const divideButton = document.getElementById('Divide')
 const equalButton = document.getElementById('Equal')
 const decimal = document.getElementById('Decimal')
+const helloButton = document.getElementById('HelloButton')
 
 function displayNumber(number) {
-  if (displayValue.length < 10) {
+  if (displayValue.length < 20) {
     displayValue += number;
     display.value = displayValue;
+    if (displayValue.length >= 15) {
+      display.style.fontSize = '20px';
+    } 
+    else if (displayValue.length >= 10) {
+      display.style.fontSize = '30px';
+    }
+    else if (displayValue.length >= 5) {
+      display.style.fontSize = '40px';
+    } else {
+      display.style.fontSize = '50px';
+    }
   }
 }
 
@@ -40,9 +52,7 @@ const helloMessages = {
   'Hebrew': 'שלום!'
 };
 
-function startCalculator() {
-  isCalculatorOn = true;
-  displayValue = '';
+function helloFeature(){ 
   const languageKeys = Object.keys(helloMessages);
   const randomLanguageKey = languageKeys[Math.floor(Math.random() * languageKeys.length)];
   display.value = helloMessages[randomLanguageKey];
@@ -53,19 +63,87 @@ function startCalculator() {
   setTimeout(function() {
     display.value = '';
     buttons.forEach(button => button.disabled = false);
-  }, 2000);
+  }, 1000);
+}
+
+const onningMessages = {
+  'English': 'Onning',
+  'Spanish': 'Encendiendo',
+  'French': 'Démarrage',
+  'German': 'Einsteigen',
+  'Italian': 'Accensione',
+  'Portuguese': 'Ligando',
+  'Chinese': '打开',
+  'Japanese': '点ける',
+  'Korean': '켜다',
+  'Russian': 'Включение',
+  'Arabic': 'تشغيل',
+  'Hebrew': 'הדלקה',
+  'Hindi': 'चालू हो रहा है',
+};
+
+function startCalculator() {
+  isCalculatorOn = true;
+  displayValue = '';
+  
+  let dotInterval = null;
+  let dots = '';
+
+  const languageKeys = Object.keys(onningMessages); 
+  const randomLanguageKey = languageKeys[Math.floor(Math.random() * languageKeys.length)];
+  dotInterval = setInterval(() => {
+    display.value = onningMessages[randomLanguageKey]+ dots;
+    dots = dots === '...' ? '' : dots + '.';
+    display.style.fontSize = '30px'
+  }, 500);
+
+  setTimeout(function() {
+    display.value = '';
+    clearInterval(dotInterval);
+  }, 5000);
+  
   
   ACButton.disabled = false;
   ACButton.value = 'AC';
 }
 
+
+const goodbyeMessages = {
+
+  'English': 'Goodbye!',
+  'Spanish': 'Adiós!',
+  'French': 'Au revoir!',
+  'German': 'Auf Wiedersehen!',
+  'Italian': 'Arrivederci!',
+  'Portuguese': 'Tchau!',
+  'Chinese': '再见',
+  'Japanese': 'さようなら!',
+  'Korean': '안녕히 가세요!',
+  'Russian': 'До свидания!',
+  'Arabic': 'مع السلامة!',
+  'Hebrew': 'להתראות!',
+  'Hindi': 'अलविदा!',
+};
+
 function shutdownCalculator() {
   isCalculatorOn = false;
   displayValue = '';
-  display.value = 'Goodbye!';
+
+  let dotInterval = null;
+  let dots = '';
+
+  const languageKeys = Object.keys(goodbyeMessages); 
+  const randomLanguageKey = languageKeys[Math.floor(Math.random() * languageKeys.length)];
+  dotInterval = setInterval(() => {
+    display.value = goodbyeMessages[randomLanguageKey]+ dots;
+    dots = dots === '...' ? '' : dots + '.';
+    display.style.fontSize = '30px'
+  }, 500);
+
   setTimeout(function() {
     display.value = '';
-  }, 2000);
+    clearInterval(dotInterval);
+  }, 5000);
 
   const buttons = document.querySelectorAll('button');
   buttons.forEach(button => button.disabled = true);
@@ -81,17 +159,19 @@ ACButton.addEventListener('click', function() {
   }
 });
 
-offButton.addEventListener('click', shutdownCalculator);
+offButton.addEventListener('click', function() {
+  shutdownCalculator();
+});
 
 for (let i = 0; i <= 9; i++) {
   const button = document.getElementById(i.toString());
   button.addEventListener('click', function() {
     if (isCalculatorOn) {
-      if (lastOperation === '=') { // check if last operation was '='
-        clearDisplay(); // clear the display
+      if (lastOperation === '=') { 
+        clearDisplay(); 
       }
       displayNumber(i);
-      lastOperation = ''; // reset last operation
+      lastOperation = ''; 
     }
   });
 }
@@ -126,7 +206,7 @@ function addOperator() {
   } else if (lastOperation === '=') {
     displayValue = displayValue + add;
     display.value = displayValue;
-    lastOperation = ''; // reset last operation
+    lastOperation = ''; 
   }
 }
 
@@ -137,7 +217,7 @@ function subtractOperator(){
   } else if (lastOperation === '=') {
     displayValue = displayValue + subtract;
     display.value = displayValue
-    lastOperation = ''; // reset last operation
+    lastOperation = ''; 
   }
 }
 
@@ -148,7 +228,7 @@ function multiplyOperator(){
   } else if (lastOperation === '=') {
     displayValue = displayValue + multiply;
     display.value = displayValue
-    lastOperation = ''; // reset last operation
+    lastOperation = ''; 
   }
 }
 
@@ -159,7 +239,7 @@ function divideOperator(){
   } else if (lastOperation === '=') {
     displayValue = displayValue + divide; 
     display.value = displayValue
-    lastOperation = ''; // reset last operation
+    lastOperation = ''; 
   }
 }
 
@@ -196,5 +276,5 @@ addButton.addEventListener('click', addOperator);
 subtractButton.addEventListener('click', subtractOperator);
 multiplyButton.addEventListener('click', multiplyOperator);
 divideButton.addEventListener('click',divideOperator);
-
+helloButton.addEventListener('click', helloFeature)
 

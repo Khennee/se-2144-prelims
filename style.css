@@ -5,31 +5,32 @@
     box-sizing: border-box;
 }
 
-body{ 
+body {
     background-color: #333;
 }
-.CONTAINER { 
+
+.CONTAINER {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    margin: 0 auto; 
+    justify-content: center;
+    margin: 0 auto;
     max-width: 400px;
 }
 
 .CALCULATOR {
-    background-color: #444; /* dark gray background */
+    background-color: #444;
     padding: 20px;
     text-align: center;
-    border: 10px solid #FFC5C5; /* pastel pink border */
-    border-radius: 20px; 
+    border: 10px solid #FFC5C5;
+    border-radius: 20px;
     background-clip: padding-box;
-    border-radius: 15px; 
+    border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.CALCULATOR form{ 
+.CALCULATOR form {
     display: inline-block;
     text-align: center;
 }
@@ -47,57 +48,66 @@ body{
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s ease-in-out;
-  }
-  
-  .CALCULATOR input:hover {
+    vertical-align: middle; /* Added vertical alignment */
+}
+
+.CALCULATOR input:not(.DISPLAY):hover {
     background-color: #87CEEB;
-  }
-  
-  .CALCULATOR input:active {
+}
+
+.CALCULATOR input:not(.DISPLAY):active {
     background-color: #FF8C69;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  }
+}
 
-.CALCULATOR form input{
+.CALCULATOR form input {
     border: 0;
     outline: 0;
     width: 60px;
     height: 60px;
-    border-radius: 15px; 
-    font-size: 20px; 
+    border-radius: 15px;
+    font-size: 20px;
     color: #333;
     cursor: pointer;
     margin: 10px;
+    vertical-align: middle; /* Added vertical alignment */
 }
 
-form .INPUT { 
-    display: flex;
+form .INPUT {
+    display: inline-block;
     align-items: center;
-    justify-content: center; 
-    width: 100%; 
-    margin: 0; 
-    box-sizing: border-box;
-}
-
-form .INPUT input { 
-    text-align: right;
     width: 100%;
-    font-size: 50px;
+    padding: 0px;
 }
 
-form input.EQUAL { 
+form input.DISPLAY {
+    width: 230px;
+    text-align: center;
+    font-size: 50px;
+    vertical-align: middle; /* Added vertical alignment */
+}
+
+form input.BACKSPACE {
+    background-color: #A879C4;
+}
+
+form input.EQUAL {
     width: 145px;
     background-color: #8BC34A;
 }
 
-form input.ON{ 
+form input.ON {
     background-color: #8BC34A;
 }
 
-form input.OPERATOR{ 
+form input.OPERATOR {
     background-color: #A879C4;
 }
 
-form input.OFF { 
-    background-color:#C65765;
+form input.OFF {
+    background-color: #C65765;
 }
+
+form input.HELLO {
+    background-color: #F7DC6F;
+} 
