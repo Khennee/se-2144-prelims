@@ -166,7 +166,7 @@ function backSpace() {
 backspaceButton.addEventListener('click', backSpace)
 
 function decimalSign(){ 
-  if (displayValue.length < 10){
+  if (displayValue.length > 0){
     displayValue += '.';
     display.value = displayValue
   }
@@ -227,26 +227,24 @@ function isOperator(char) {
 }
 
 function calculate() {
+  try {
+    let expression = displayValue;
+    let result = eval(expression.replace('×', '*').replace('÷', '/'));
+    let resultStr = result.toString();
 
-  let numbers = displayValue.split(/[-+×÷]/);
-  let operators = displayValue.match(/[-+×÷]/g);
-  let result = parseFloat(numbers[0]);
-
-  for (let i = 0; i < operators.length; i++) {
-    if (operators[i] === '+') {
-      result += parseFloat(numbers[i + 1]);
-    } else if (operators[i] === '-') {
-      result -= parseFloat(numbers[i + 1]);
-    } else if (operators[i] === '×') {
-      result *= parseFloat(numbers[i + 1]);
-    } else if (operators[i] === '÷') {
-      result /= parseFloat(numbers[i + 1]);
+    if (resultStr.length > 15) {
+      resultStr = resultStr.substring(0, 15) + '...';
     }
 
-    displayValue = result.toString();
+    displayValue = resultStr;
+    display.value = displayValue;
+    lastOperation = '=';
+
+  } catch (error) {
+    console.error("Error: ", error);
+    displayValue = "Error";
     display.value = displayValue;
   }
-  lastOperation = '='; 
 }
 
 equalButton.addEventListener('click', calculate);
