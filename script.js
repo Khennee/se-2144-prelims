@@ -80,6 +80,7 @@ function startCalculator() {
   displayValue = '';
 
   ACButton.style.backgroundColor = '#8BC34A'
+  display.style.backgroundColor = '#FFC5C5'
 
   ACButton.disabled = false;
   ACButton.value = 'AC';
@@ -91,6 +92,8 @@ function shutdownCalculator() {
   display.value = displayValue;
 
   ACButton.style.backgroundColor = '#C65765'
+  display.style.backgroundColor = 'rgb(130, 130, 130)'
+  display.style.boxShadow = '0 0 10px'
 
   const buttons = document.querySelectorAll('button');
   buttons.forEach(button => button.disabled = true);
@@ -210,37 +213,34 @@ function isOperator(char) {
   return char === '+' || char === '-' || char === '×' || char === '÷';
 }
 
+
 function calculate() {
+  let previousValue = displayValue; // Store the previous value
   if (isOperator(displayValue[displayValue.length - 1])) {
+    displayValue = "Error!";
+    display.value = displayValue;
     setTimeout(function() {
-      displayValue = "Error";
+      displayValue = previousValue; // Restore the previous value
       display.value = displayValue;
-      setTimeout(function() {
-        displayValue = '';
-        display.value = displayValue;
-      }, 1000);
-    }, 0);
-  } else if (displayValue.includes('+')) {
-    let numbers = displayValue.split('+');
-    let result = parseFloat(numbers[0]) + parseFloat(numbers[1]);
-    displayValue = result.toString();
-    display.value = displayValue;
-  }
-  else if (displayValue.includes('-')) {
-    let numbers = displayValue.split('-');
-    let result = parseFloat(numbers[0]) - parseFloat(numbers[1]);
-    displayValue = result.toString();
-    display.value = displayValue;
-  }
-  else if (displayValue.includes('×')) { 
-    let numbers = displayValue.split('×');
-    let result = parseFloat(numbers[0]) * parseFloat(numbers[1]);
-    displayValue = result.toString();
-    display.value = displayValue;
-  }
-  else if (displayValue.includes('÷')){ 
-    let numbers = displayValue.split('÷');
-    let result = parseFloat(numbers[0]) / parseFloat(numbers[1]);
+      lastOperation = ''; // Reset lastOperation
+    }, 1000);
+  } else {
+    let numbers = displayValue.split(/[-+×÷]/);
+    let operators = displayValue.match(/[-+×÷]/g);
+    let result = parseFloat(numbers[0]);
+
+    for (let i = 0; i < operators.length; i++) {
+      if (operators[i] === '+') {
+        result += parseFloat(numbers[i + 1]);
+      } else if (operators[i] === '-') {
+        result -= parseFloat(numbers[i + 1]);
+      } else if (operators[i] === '×') {
+        result *= parseFloat(numbers[i + 1]);
+      } else if (operators[i] === '÷') {
+        result /= parseFloat(numbers[i + 1]);
+      }
+    }
+
     displayValue = result.toString();
     display.value = displayValue;
   }

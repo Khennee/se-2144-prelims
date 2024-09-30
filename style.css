@@ -46,9 +46,8 @@ body {
     margin: 10px;
     background-color: #FFC5C5;
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s ease-in-out;
-    vertical-align: middle; /* Added vertical alignment */
+    vertical-align: middle;
 }
 
 .CALCULATOR input:not(.DISPLAY):hover {
@@ -70,7 +69,7 @@ body {
     color: #333;
     cursor: pointer;
     margin: 10px;
-    vertical-align: middle; /* Added vertical alignment */
+    vertical-align: middle;
 }
 
 form .INPUT {
@@ -84,7 +83,7 @@ form input.DISPLAY {
     width: 230px;
     text-align: center;
     font-size: 50px;
-    vertical-align: middle; /* Added vertical alignment */
+    vertical-align: middle; 
 }
 
 form input.BACKSPACE {
@@ -111,3 +110,8 @@ form input.OFF {
 form input.HELLO {
     background-color: #F7DC6F;
 } 
+
+form input.DISPLAY { 
+    background-color:rgb(130, 130, 130);
+    box-shadow: none;
+}
