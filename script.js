@@ -14,6 +14,53 @@ const equalButton = document.getElementById('Equal')
 const decimal = document.getElementById('Decimal')
 const helloButton = document.getElementById('HelloButton')
 
+const helloMessages = {
+  'English': 'Hello!',
+  'Spanish': 'Hola!',
+  'French': 'Bonjour!',
+  'German': 'Hallo!',
+  'Italian': 'Ciao!',
+  'Portuguese': 'Olá!',
+  'Chinese': '你好!',
+  'Japanese': 'こんにちは!',
+  'Korean': '안녕하세요!',
+  'Russian': 'Привет!',
+  'Arabic': 'مرحبا!',
+  'Hebrew': 'שלום!'
+};
+
+const onningMessages = {
+  'English': 'Onning',
+  'Spanish': 'Encendiendo',
+  'French': 'Démarrage',
+  'German': 'Einsteigen',
+  'Italian': 'Accensione',
+  'Portuguese': 'Ligando',
+  'Chinese': '打开',
+  'Japanese': '点ける',
+  'Korean': '켜다',
+  'Russian': 'Включение',
+  'Arabic': 'تشغيل',
+  'Hebrew': 'הדלקה',
+  'Hindi': 'चालू हो रहा है',
+};
+
+const goodbyeMessages = {
+  'English': 'Goodbye!',
+  'Spanish': 'Adiós!',
+  'French': 'Au revoir!',
+  'German': 'Auf Wiedersehen!',
+  'Italian': 'Arrivederci!',
+  'Portuguese': 'Tchau!',
+  'Chinese': '再见',
+  'Japanese': 'さようなら!',
+  'Korean': '안녕히 가세요!',
+  'Russian': 'До свидания!',
+  'Arabic': 'مع السلامة!',
+  'Hebrew': 'להתראות!',
+  'Hindi': 'अलविदा!',
+};
+
 function displayNumber(number) {
   if (displayValue.length < 20) {
     displayValue += number;
@@ -37,21 +84,6 @@ function clearDisplay() {
   display.value = displayValue;
 }
 
-const helloMessages = {
-  'English': 'Hello!',
-  'Spanish': 'Hola!',
-  'French': 'Bonjour!',
-  'German': 'Hallo!',
-  'Italian': 'Ciao!',
-  'Portuguese': 'Olá!',
-  'Chinese': '你好!',
-  'Japanese': 'こんにちは!',
-  'Korean': '안녕하세요!',
-  'Russian': 'Привет!',
-  'Arabic': 'مرحبا!',
-  'Hebrew': 'שלום!'
-};
-
 function helloFeature(){ 
   const languageKeys = Object.keys(helloMessages);
   const randomLanguageKey = languageKeys[Math.floor(Math.random() * languageKeys.length)];
@@ -65,22 +97,6 @@ function helloFeature(){
     buttons.forEach(button => button.disabled = false);
   }, 1000);
 }
-
-const onningMessages = {
-  'English': 'Onning',
-  'Spanish': 'Encendiendo',
-  'French': 'Démarrage',
-  'German': 'Einsteigen',
-  'Italian': 'Accensione',
-  'Portuguese': 'Ligando',
-  'Chinese': '打开',
-  'Japanese': '点ける',
-  'Korean': '켜다',
-  'Russian': 'Включение',
-  'Arabic': 'تشغيل',
-  'Hebrew': 'הדלקה',
-  'Hindi': 'चालू हो रहा है',
-};
 
 function startCalculator() {
   isCalculatorOn = true;
@@ -107,23 +123,6 @@ function startCalculator() {
   ACButton.value = 'AC';
 }
 
-
-const goodbyeMessages = {
-
-  'English': 'Goodbye!',
-  'Spanish': 'Adiós!',
-  'French': 'Au revoir!',
-  'German': 'Auf Wiedersehen!',
-  'Italian': 'Arrivederci!',
-  'Portuguese': 'Tchau!',
-  'Chinese': '再见',
-  'Japanese': 'さようなら!',
-  'Korean': '안녕히 가세요!',
-  'Russian': 'До свидания!',
-  'Arabic': 'مع السلامة!',
-  'Hebrew': 'להתראות!',
-  'Hindi': 'अलविदा!',
-};
 
 function shutdownCalculator() {
   isCalculatorOn = false;
@@ -277,4 +276,3 @@ subtractButton.addEventListener('click', subtractOperator);
 multiplyButton.addEventListener('click', multiplyOperator);
 divideButton.addEventListener('click',divideOperator);
 helloButton.addEventListener('click', helloFeature)
-
