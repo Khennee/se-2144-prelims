@@ -29,38 +29,6 @@ const helloMessages = {
   'Hebrew': 'שלום!'
 };
 
-const onningMessages = {
-  'English': 'Onning',
-  'Spanish': 'Encendiendo',
-  'French': 'Démarrage',
-  'German': 'Einsteigen',
-  'Italian': 'Accensione',
-  'Portuguese': 'Ligando',
-  'Chinese': '打开',
-  'Japanese': '点ける',
-  'Korean': '켜다',
-  'Russian': 'Включение',
-  'Arabic': 'تشغيل',
-  'Hebrew': 'הדלקה',
-  'Hindi': 'चालू हो रहा है',
-};
-
-const goodbyeMessages = {
-  'English': 'Goodbye!',
-  'Spanish': 'Adiós!',
-  'French': 'Au revoir!',
-  'German': 'Auf Wiedersehen!',
-  'Italian': 'Arrivederci!',
-  'Portuguese': 'Tchau!',
-  'Chinese': '再见',
-  'Japanese': 'さようなら!',
-  'Korean': '안녕히 가세요!',
-  'Russian': 'До свидания!',
-  'Arabic': 'مع السلامة!',
-  'Hebrew': 'להתראות!',
-  'Hindi': 'अलविदा!',
-};
-
 function displayNumber(number) {
   if (displayValue.length < 20) {
     displayValue += number;
@@ -98,56 +66,37 @@ function helloFeature(){
   }, 1000);
 }
 
+helloButton.addEventListener('click', function () {
+  if (isCalculatorOn) {
+    helloFeature();
+  } 
+  else{ 
+    display.value = '';
+  }
+});
+
 function startCalculator() {
   isCalculatorOn = true;
   displayValue = '';
-  
-  let dotInterval = null;
-  let dots = '';
 
-  const languageKeys = Object.keys(onningMessages); 
-  const randomLanguageKey = languageKeys[Math.floor(Math.random() * languageKeys.length)];
-  dotInterval = setInterval(() => {
-    display.value = onningMessages[randomLanguageKey]+ dots;
-    dots = dots === '...' ? '' : dots + '.';
-    display.style.fontSize = '30px'
-  }, 500);
+  ACButton.style.backgroundColor = '#8BC34A'
 
-  setTimeout(function() {
-    display.value = '';
-    clearInterval(dotInterval);
-  }, 5000);
-  
-  
   ACButton.disabled = false;
   ACButton.value = 'AC';
 }
 
-
 function shutdownCalculator() {
   isCalculatorOn = false;
   displayValue = '';
+  display.value = displayValue;
 
-  let dotInterval = null;
-  let dots = '';
-
-  const languageKeys = Object.keys(goodbyeMessages); 
-  const randomLanguageKey = languageKeys[Math.floor(Math.random() * languageKeys.length)];
-  dotInterval = setInterval(() => {
-    display.value = goodbyeMessages[randomLanguageKey]+ dots;
-    dots = dots === '...' ? '' : dots + '.';
-    display.style.fontSize = '30px'
-  }, 500);
-
-  setTimeout(function() {
-    display.value = '';
-    clearInterval(dotInterval);
-  }, 5000);
+  ACButton.style.backgroundColor = '#C65765'
 
   const buttons = document.querySelectorAll('button');
   buttons.forEach(button => button.disabled = true);
   ACButton.disabled = false;
   ACButton.value = 'ON';
+  lastOperation = '';
 }
 
 ACButton.addEventListener('click', function() {
@@ -197,11 +146,14 @@ let add = '+';
 let subtract = '-';
 let multiply = '×';
 let divide = '÷';
-
 function addOperator() {
   if (displayValue.length > 0 && lastOperation !== '=') {
-    displayValue += add;
-    display.value = displayValue;
+    if (isOperator(displayValue[displayValue.length - 1])) {
+      display.value = "Error";
+    } else {
+      displayValue += add;
+      display.value = displayValue;
+    }
   } else if (lastOperation === '=') {
     displayValue = displayValue + add;
     display.value = displayValue;
@@ -211,8 +163,12 @@ function addOperator() {
 
 function subtractOperator(){
   if (displayValue.length > 0 && lastOperation !== '=') {
-    displayValue += subtract;
-    display.value = displayValue
+    if (isOperator(displayValue[displayValue.length - 1])) {
+      display.value = "Error";
+    } else {
+      displayValue += subtract;
+      display.value = displayValue
+    }
   } else if (lastOperation === '=') {
     displayValue = displayValue + subtract;
     display.value = displayValue
@@ -222,8 +178,12 @@ function subtractOperator(){
 
 function multiplyOperator(){ 
   if (displayValue.length > 0 && lastOperation !== '=') {
-    displayValue += multiply;
-    display.value = displayValue
+    if (isOperator(displayValue[displayValue.length - 1])) {
+      display.value = "Error";
+    } else {
+      displayValue += multiply;
+      display.value = displayValue
+    }
   } else if (lastOperation === '=') {
     displayValue = displayValue + multiply;
     display.value = displayValue
@@ -233,8 +193,12 @@ function multiplyOperator(){
 
 function divideOperator(){ 
   if (displayValue.length > 0 && lastOperation !== '=') {
-    displayValue += divide; 
-    display.value = displayValue
+    if (isOperator(displayValue[displayValue.length - 1])) {
+      display.value = "Error";
+    } else {
+      displayValue += divide; 
+      display.value = displayValue
+    }
   } else if (lastOperation === '=') {
     displayValue = displayValue + divide; 
     display.value = displayValue
@@ -242,8 +206,21 @@ function divideOperator(){
   }
 }
 
+function isOperator(char) {
+  return char === '+' || char === '-' || char === '×' || char === '÷';
+}
+
 function calculate() {
-  if (displayValue.includes('+')) {
+  if (isOperator(displayValue[displayValue.length - 1])) {
+    setTimeout(function() {
+      displayValue = "Error";
+      display.value = displayValue;
+      setTimeout(function() {
+        displayValue = '';
+        display.value = displayValue;
+      }, 1000);
+    }, 0);
+  } else if (displayValue.includes('+')) {
     let numbers = displayValue.split('+');
     let result = parseFloat(numbers[0]) + parseFloat(numbers[1]);
     displayValue = result.toString();
@@ -270,9 +247,9 @@ function calculate() {
   lastOperation = '='
 }
 
+
 equalButton.addEventListener('click', calculate);
 addButton.addEventListener('click', addOperator);
 subtractButton.addEventListener('click', subtractOperator);
 multiplyButton.addEventListener('click', multiplyOperator);
 divideButton.addEventListener('click',divideOperator);
-helloButton.addEventListener('click', helloFeature)
