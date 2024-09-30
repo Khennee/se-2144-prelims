@@ -44,14 +44,14 @@ body {
     color: #fff;
     cursor: pointer;
     margin: 10px;
-    background-color: #FFC5C5;
+    background-color: rgb(130, 130, 130);
     border-radius: 15px;
     transition: background-color 0.2s ease-in-out;
     vertical-align: middle;
 }
 
 .CALCULATOR input:not(.DISPLAY):hover {
-    background-color: #87CEEB;
+    font-weight: bold;
 }
 
 .CALCULATOR input:not(.DISPLAY):active {
@@ -79,6 +79,9 @@ form .INPUT {
     padding: 0px;
 }
 
+form input { 
+    background-color:'rgb(130, 130, 130)';
+}
 form input.DISPLAY {
     width: 230px;
     text-align: center;
@@ -86,32 +89,11 @@ form input.DISPLAY {
     vertical-align: middle; 
 }
 
-form input.BACKSPACE {
-    background-color: #A879C4;
-}
-
 form input.EQUAL {
     width: 145px;
-    background-color: #8BC34A;
 }
 
 form input.ON {
     background-color: #C65765;
 }
 
-form input.OPERATOR {
-    background-color: #A879C4;
-}
-
-form input.OFF {
-    background-color: #C65765;
-}
-
-form input.HELLO {
-    background-color: #F7DC6F;
-} 
-
-form input.DISPLAY { 
-    background-color:rgb(130, 130, 130);
-    box-shadow: none;
-}
