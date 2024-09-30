@@ -1,7 +1,3 @@
-let isCalculatorOn = false;
-let displayValue = '';
-let lastOperation = '';
-
 const display = document.getElementById('display');
 const ACButton = document.getElementById('AC');
 const offButton = document.getElementById('OffButton');
@@ -13,6 +9,12 @@ const divideButton = document.getElementById('Divide')
 const equalButton = document.getElementById('Equal')
 const decimal = document.getElementById('Decimal')
 const helloButton = document.getElementById('HelloButton')
+
+let isCalculatorOn = false;
+let displayValue = '';
+let lastOperation = '';
+let isShuttingDown = false;
+
 
 const helloMessages = {
   'English': 'Hello!',
@@ -45,7 +47,7 @@ function adjustFontSize(length) {
   } else if (length >= 5) {
     display.style.fontSize = '40px';
   } else {
-    display.style.fontSize = '50px'; // Reset to original size if length is less than 5
+    display.style.fontSize = '50px'; 
   }
 }
 
@@ -68,11 +70,11 @@ function helloFeature(){
 }
 
 helloButton.addEventListener('click', function () {
-  if (isCalculatorOn) {
+  if (isCalculatorOn && !isShuttingDown) {
     helloFeature();
   } 
   else{ 
-    display.value = '';
+    
   }
 });
 
@@ -101,31 +103,35 @@ function startCalculator() {
 }
 
 function shutdownCalculator() {
-  isCalculatorOn = false;
-  displayValue = '';
-  display.value = displayValue;
+  display.value = 'Goodbye!';
+  isShuttingDown = true;
 
-  ACButton.style.backgroundColor = '#C65765'
-  display.style.backgroundColor = 'rgb(130, 130, 130)'
-  offButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  decimal.style.backgroundColor = 'rgb(130, 130, 130)'
-  backspaceButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  addButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  subtractButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  multiplyButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  divideButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  equalButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  helloButton.style.backgroundColor = 'rgb(130, 130, 130)'
-  for (let i = 0; i <= 9; i++) {
-    const button = document.getElementById(i.toString());
-    button.style.backgroundColor = 'rgb(130, 130, 130)';
-  }
+  setTimeout(function() {
+    isCalculatorOn = false;
+    displayValue = '';
+    display.value = displayValue;
 
-  const buttons = document.querySelectorAll('button');
-  buttons.forEach(button => button.disabled = true);
-  ACButton.disabled = false;
-  ACButton.value = 'ON';
-  lastOperation = '';
+    ACButton.style.backgroundColor = '#C65765'
+    display.style.backgroundColor = 'rgb(130, 130, 130)'
+    offButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    decimal.style.backgroundColor = 'rgb(130, 130, 130)'
+    backspaceButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    addButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    subtractButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    multiplyButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    divideButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    equalButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    helloButton.style.backgroundColor = 'rgb(130, 130, 130)'
+    for (let i = 0; i <= 9; i++) {
+      const button = document.getElementById(i.toString());
+      button.style.backgroundColor = 'rgb(130, 130, 130)';
+    }
+
+    ACButton.disabled = false;
+    ACButton.value = 'ON';
+    lastOperation = '';
+    isShuttingDown = false;
+  }, 1000); 
 }
 
 ACButton.addEventListener('click', function() {
@@ -143,7 +149,7 @@ offButton.addEventListener('click', function() {
 for (let i = 0; i <= 9; i++) {
   const button = document.getElementById(i.toString());
   button.addEventListener('click', function() {
-    if (isCalculatorOn) {
+    if (isCalculatorOn && !isShuttingDown) {
       if (lastOperation === '=') {
         if (!isOperator(displayValue[displayValue.length - 1])) {
           clearDisplay();
