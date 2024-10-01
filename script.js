@@ -165,7 +165,7 @@ function backSpace() {
   if (displayValue.length > 0) {
     displayValue = displayValue.slice(0, -1);
     display.value = displayValue;
-    adjustFontSize(displayValue.length); // Adjust font size based on new length
+    adjustFontSize(displayValue.length); 
   }
 }
 
