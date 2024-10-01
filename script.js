@@ -103,37 +103,38 @@ function startCalculator() {
 }
 
 function shutdownCalculator() {
-  display.value = 'Goodbye!';
-  isShuttingDown = true;
+  if (isCalculatorOn) {
+    display.value = 'Goodbye!';
+    isShuttingDown = true;
 
-  setTimeout(function() {
-    isCalculatorOn = false;
-    displayValue = '';
-    display.value = displayValue;
+    setTimeout(function() {
+      isCalculatorOn = false;
+      displayValue = '';
+      display.value = displayValue;
 
-    ACButton.style.backgroundColor = '#C65765'
-    display.style.backgroundColor = 'rgb(130, 130, 130)'
-    offButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    decimal.style.backgroundColor = 'rgb(130, 130, 130)'
-    backspaceButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    addButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    subtractButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    multiplyButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    divideButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    equalButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    helloButton.style.backgroundColor = 'rgb(130, 130, 130)'
-    for (let i = 0; i <= 9; i++) {
-      const button = document.getElementById(i.toString());
-      button.style.backgroundColor = 'rgb(130, 130, 130)';
-    }
+      ACButton.style.backgroundColor = '#C65765'
+      display.style.backgroundColor = 'rgb(130, 130, 130)'
+      offButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      decimal.style.backgroundColor = 'rgb(130, 130, 130)'
+      backspaceButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      addButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      subtractButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      multiplyButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      divideButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      equalButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      helloButton.style.backgroundColor = 'rgb(130, 130, 130)'
+      for (let i = 0; i <= 9; i++) {
+        const button = document.getElementById(i.toString());
+        button.style.backgroundColor = 'rgb(130, 130, 130)';
+      }
 
-    ACButton.disabled = false;
-    ACButton.value = 'ON';
-    lastOperation = '';
-    isShuttingDown = false;
-  }, 1000); 
+      ACButton.disabled = false;
+      ACButton.value = 'ON';
+      lastOperation = '';
+      isShuttingDown = false;
+    }, 1000);
+  }
 }
-
 ACButton.addEventListener('click', function() {
   if (isCalculatorOn) {
     clearDisplay();
@@ -250,6 +251,7 @@ function calculate() {
     console.error("Error: ", error);
     displayValue = "Error";
     display.value = displayValue;
+    lastOperation = '=';
   }
 }
 

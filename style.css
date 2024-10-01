@@ -52,10 +52,12 @@ body {
 
 .CALCULATOR input:not(.DISPLAY):hover {
     font-weight: bold;
+    font-size: 25px;
+    color: white;
 }
 
 .CALCULATOR input:not(.DISPLAY):active {
-    background-color: #FF8C69;
+    background-color: none;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
