@@ -31,14 +31,6 @@ const helloMessages = {
   'Hebrew': 'שלום!'
 };
 
-function displayNumber(number) {
-  if (displayValue.length < 20) {
-    displayValue += number;
-    display.value = displayValue;
-    adjustFontSize(displayValue.length);
-  }
-}
-
 function adjustFontSize(length) {
   if (length >= 15) {
     display.style.fontSize = '20px';
@@ -61,11 +53,11 @@ function helloFeature(){
   const languageKeys = Object.keys(helloMessages);
   const randomLanguageKey = languageKeys[Math.floor(Math.random() * languageKeys.length)];
   display.value = helloMessages[randomLanguageKey];
+  display.style.fontSize = '30px';
 
   
   const buttons = document.querySelectorAll('button');
   buttons.forEach(button => button.disabled = true);
-  
   helloButton.disabled = false;
 }
 
@@ -172,10 +164,13 @@ function backSpace() {
 
 backspaceButton.addEventListener('click', backSpace)
 
-function decimalSign(){ 
+function decimalSign(){
   if (displayValue.length > 0){
-    displayValue += '.';
-    display.value = displayValue
+    let lastNumber = displayValue.split(/[\+\-\×÷]/).pop();
+    if (!lastNumber.includes('.')) {
+      displayValue += '.';
+      display.value = displayValue;
+    }
   }
 }
 
@@ -185,34 +180,48 @@ let add = '+';
 let subtract = '-';
 let multiply = '×';
 let divide = '÷';
+function displayNumber(number) {
+  if (displayValue.length < 20) {
+    if (displayValue === '' && number === '-') {
+      displayValue = '-';
+    } else if (displayValue === '0' || displayValue === '-0') {
+      displayValue = number === '0' ? '0' : number;
+    } else {
+      displayValue += number;
+    }
+    display.value = displayValue;
+    adjustFontSize(displayValue.length);
+  }
+}
+
+
 function addOperator() {
   if (displayValue.length > 0 && !isOperator(displayValue[displayValue.length - 1])) {
     displayValue += '+';
     display.value = displayValue;
   } else if (lastOperation === '=') {
-    displayValue += '+';
+    displayValue = '';
     display.value = displayValue;
     lastOperation = ''; 
   }
 }
 
 function subtractOperator() {
-  if (displayValue.length > 0 && !isOperator(displayValue[displayValue.length - 1])) {
+  if (displayValue === '') {
+    displayValue = '-';
+  } else if (!isOperator(displayValue[displayValue.length - 1])) {
     displayValue += '-';
-    display.value = displayValue;
-  } else if (lastOperation === '=') {
-    displayValue += '-';
-    display.value = displayValue;
-    lastOperation = ''; 
   }
+  display.value = displayValue;
 }
+
 
 function multiplyOperator() {
   if (displayValue.length > 0 && !isOperator(displayValue[displayValue.length - 1])) {
     displayValue += '×';
     display.value = displayValue;
   } else if (lastOperation === '=') {
-    displayValue += '×';
+    displayValue = '';
     display.value = displayValue;
     lastOperation = ''; 
   }
@@ -223,7 +232,7 @@ function divideOperator() {
     displayValue += '÷';
     display.value = displayValue;
   } else if (lastOperation === '=') {
-    displayValue += '÷';
+    displayValue = '';
     display.value = displayValue;
     lastOperation = ''; 
   }
@@ -236,9 +245,17 @@ function isOperator(char) {
 function calculate() {
   try {
     let expression = displayValue;
-    let result = eval(expression.replace('×', '*').replace('÷', '/'));
-    let resultStr = result.toString();
 
+    // Ensure the expression is valid by prepending '0' if starting with a negative number
+    if (expression.startsWith('-')) {
+      expression = '0' + expression;
+    }
+
+    // Replace custom symbols with JS arithmetic operators
+    let result = eval(expression.replace('×', '*').replace('÷', '/'));
+    
+    // Ensure the result doesn't overflow the display
+    let resultStr = result.toString();
     if (resultStr.length > 15) {
       resultStr = resultStr.substring(0, 15) + '...';
     }
@@ -254,6 +271,7 @@ function calculate() {
     lastOperation = '=';
   }
 }
+
 
 equalButton.addEventListener('click', calculate);
 addButton.addEventListener('click', addOperator);
