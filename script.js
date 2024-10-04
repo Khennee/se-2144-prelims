@@ -246,15 +246,12 @@ function calculate() {
   try {
     let expression = displayValue;
 
-    // Ensure the expression is valid by prepending '0' if starting with a negative number
     if (expression.startsWith('-')) {
       expression = '0' + expression;
     }
 
-    // Replace custom symbols with JS arithmetic operators
     let result = eval(expression.replace('×', '*').replace('÷', '/'));
     
-    // Ensure the result doesn't overflow the display
     let resultStr = result.toString();
     if (resultStr.length > 15) {
       resultStr = resultStr.substring(0, 15) + '...';
